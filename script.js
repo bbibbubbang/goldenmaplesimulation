@@ -85,6 +85,7 @@ const DOM = {
 
 // Show Effect Animation
 function showEffect(type, text) {
+    DOM.effectContainer.innerHTML = ''; // Clear previous effects to prevent visual overlap
     const el = document.createElement('div');
     el.classList.add('effect-message');
     if (type === 'success') {
@@ -183,15 +184,15 @@ function updateUI() {
 
     // Update Stats UI
     DOM.lvAtk.innerText = state.atkLv;
-    DOM.valAtk.innerText = state.atkLv * 1; // Assuming 1% per level based on UI image which shows +0% at Lv.0
+    DOM.valAtk.innerText = state.atkLv * 3;
     DOM.probAtk.innerText = probs.atk.toFixed(2);
 
     DOM.lvDef.innerText = state.defLv;
-    DOM.valDef.innerText = state.defLv * 1;
+    DOM.valDef.innerText = state.defLv * 3;
     DOM.probDef.innerText = probs.def.toFixed(2);
 
     DOM.lvHp.innerText = state.hpLv;
-    DOM.valHp.innerText = state.hpLv * 1;
+    DOM.valHp.innerText = state.hpLv * 3;
     DOM.probHp.innerText = probs.hp.toFixed(2);
 
     // Update Info UI
@@ -212,7 +213,7 @@ function updateUI() {
 DOM.btnEnhance.addEventListener('click', () => {
     const state = getState();
     if (state.remCount <= 0) {
-        alert("남은 강화 횟수가 없습니다.");
+        showEffect('fail', '남은 강화 횟수가 없습니다.');
         return;
     }
 
