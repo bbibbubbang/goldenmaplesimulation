@@ -2,7 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 body {
@@ -343,4 +343,61 @@ body {
 
 .modal-btn.save {
     background-color: #d34d3f;
+}
+
+/* Effects */
+.effect-container {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.effect-message {
+    font-size: 60px;
+    font-weight: bold;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 2px 2px 5px rgba(0,0,0,1);
+    animation: floatUpFadeOut 1.5s ease-out forwards;
+    white-space: nowrap;
+    position: absolute;
+}
+
+.effect-success {
+    color: #ffd700; /* Gold */
+}
+
+.effect-fail {
+    color: #ff4c4c; /* Red */
+}
+
+.effect-reset {
+    color: #4da6ff; /* Blue */
+}
+
+@keyframes floatUpFadeOut {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.5);
+    }
+    20% {
+        opacity: 1;
+        transform: translateY(0) scale(1.1);
+    }
+    30% {
+        transform: translateY(0) scale(1);
+    }
+    80% {
+        opacity: 1;
+        transform: translateY(-50px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-80px) scale(0.8);
+    }
 }

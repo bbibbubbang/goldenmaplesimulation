@@ -5,12 +5,40 @@ const createInitialState = () => ({
     hpLv: 0,
     remCount: 34,
     maxCount: 34,
-    leaves: 202400
+    leaves: 1000000
 });
 
 // Presets (5 slots)
 let presets = Array(5).fill(null).map(() => createInitialState());
 let currentPresetIndex = 0;
+
+// Local Storage
+function saveState() {
+    localStorage.setItem('goldenMapleState', JSON.stringify({
+        presets,
+        currentPresetIndex
+    }));
+}
+
+function loadState() {
+    const saved = localStorage.getItem('goldenMapleState');
+    if (saved) {
+        try {
+            const parsed = JSON.parse(saved);
+            if (parsed.presets && Array.isArray(parsed.presets)) {
+                presets = parsed.presets;
+            }
+            if (typeof parsed.currentPresetIndex === 'number') {
+                currentPresetIndex = parsed.currentPresetIndex;
+            }
+        } catch (e) {
+            console.error("Failed to parse saved state", e);
+        }
+    }
+}
+
+// Load saved state on initialization
+loadState();
 
 // DOM Elements
 const DOM = {
@@ -50,8 +78,30 @@ const DOM = {
     inputLeaves: document.getElementById('input-leaves'),
     inputMaxCount: document.getElementById('input-max-count'),
     btnSettingsCancel: document.getElementById('btn-settings-cancel'),
-    btnSettingsSave: document.getElementById('btn-settings-save')
+    btnSettingsSave: document.getElementById('btn-settings-save'),
+
+    effectContainer: document.getElementById('effect-container')
 };
+
+// Show Effect Animation
+function showEffect(type, text) {
+    const el = document.createElement('div');
+    el.classList.add('effect-message');
+    if (type === 'success') {
+        el.classList.add('effect-success');
+    } else if (type === 'fail') {
+        el.classList.add('effect-fail');
+    } else if (type === 'reset') {
+        el.classList.add('effect-reset');
+    }
+    el.innerText = text;
+    DOM.effectContainer.appendChild(el);
+
+    // Remove element after animation ends (1.5s)
+    setTimeout(() => {
+        el.remove();
+    }, 1500);
+}
 
 // Helper: Get current state
 function getState() {
@@ -66,6 +116,7 @@ DOM.presets.forEach((btn, index) => {
         btn.classList.add('active');
 
         currentPresetIndex = index;
+        saveState();
         updateUI();
     });
 });
@@ -113,6 +164,15 @@ function getTotalLevelInfo(totalLv) {
 // Update UI
 function updateUI() {
     const state = getState();
+
+    // Update active preset button based on currentPresetIndex
+    DOM.presets.forEach((b, i) => {
+        if (i === currentPresetIndex) {
+            b.classList.add('active');
+        } else {
+            b.classList.remove('active');
+        }
+    });
 
     // Stats Calculations
     const probs = getStatProbabilities(state);
@@ -182,14 +242,16 @@ DOM.btnEnhance.addEventListener('click', () => {
         } else {
             state.hpLv += 1;
         }
+        showEffect('success', '강화 성공!');
     } else {
         // Failed
-        console.log("강화 실패");
+        showEffect('fail', '강화 실패');
     }
 
     // Propagate leaves changes to all presets since it's an account-wide currency, or keep per-preset.
     // The prompt says "현재 강화 레벨과 남은 강화 횟수와 강화 시 소모량, 황금단풍잎 보유량 등 모든 상태가 각각 저장되어 있는 슬롯".
     // So they are isolated.
+    saveState();
     updateUI();
 });
 
@@ -208,6 +270,9 @@ DOM.btnReset.addEventListener('click', () => {
     state.hpLv = 0;
     state.remCount = state.maxCount;
 
+    showEffect('reset', '초기화 완료!');
+
+    saveState();
     updateUI();
 });
 
@@ -252,6 +317,7 @@ DOM.btnSettingsSave.addEventListener('click', () => {
     }
 
     DOM.settingsModal.classList.remove('show');
+    saveState();
     updateUI();
 });
 
