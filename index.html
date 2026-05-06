@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>황금 단풍잎 강화 시뮬레이션</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app-container">
+        <!-- Effect Container -->
+        <div id="effect-container" class="effect-container"></div>
+
         <!-- Header -->
         <header class="header">
             <div class="header-title">황금 단풍잎 강화</div>
@@ -82,14 +86,14 @@
             <div class="action-btn-wrapper enhance-wrapper">
                 <button class="action-btn enhance-btn" id="btn-enhance">
                     <div class="btn-title">능력치 강화하기</div>
-                    <div class="btn-cost">🍁 <span id="cost-enhance-owned">202400</span>/<span id="cost-enhance-req">1</span></div>
+                    <div class="btn-cost">🍁 <span id="cost-enhance-owned">1000000</span>/<span id="cost-enhance-req">1</span></div>
                 </button>
             </div>
 
             <div class="action-btn-wrapper reset-wrapper">
                 <button class="action-btn reset-btn" id="btn-reset">
                     <div class="btn-title">강화 초기화하기</div>
-                    <div class="btn-cost">🍁 <span id="cost-reset-owned">202400</span>/<span id="cost-reset-req">30</span></div>
+                    <div class="btn-cost">🍁 <span id="cost-reset-owned">1000000</span>/<span id="cost-reset-req">30</span></div>
                 </button>
             </div>
         </div>
@@ -101,7 +105,7 @@
             <h2 class="modal-title">설정</h2>
             <div class="setting-item">
                 <label for="input-leaves">황금 단풍잎 보유량</label>
-                <input type="number" id="input-leaves" value="202400" min="0">
+                <input type="number" id="input-leaves" value="1000000" min="0">
             </div>
             <div class="setting-item">
                 <label for="input-max-count">최대 강화 횟수 (최대 50)</label>
