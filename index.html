@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>황금 단풍잎 강화 시뮬레이션</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-title">황금 단풍잎 강화</div>
+            <button class="settings-btn" id="btn-open-settings">⚙️ 설정</button>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Column: Stats & Presets -->
+            <div class="left-col">
+                <div class="stats-container">
+                    <!-- Attack -->
+                    <div class="stat-item" id="stat-atk">
+                        <div class="stat-icon atk-icon">⚔️</div>
+                        <div class="stat-info">
+                            <div class="stat-level">Lv. <span id="lv-atk">0</span></div>
+                            <div class="stat-name">공격력% + <span id="val-atk">0</span>%</div>
+                        </div>
+                        <div class="stat-prob">강화 확률: <span id="prob-atk">33.33</span>%</div>
+                    </div>
+                    <!-- Defense -->
+                    <div class="stat-item" id="stat-def">
+                        <div class="stat-icon def-icon">🛡️</div>
+                        <div class="stat-info">
+                            <div class="stat-level">Lv. <span id="lv-def">0</span></div>
+                            <div class="stat-name">방어력% + <span id="val-def">0</span>%</div>
+                        </div>
+                        <div class="stat-prob">강화 확률: <span id="prob-def">33.33</span>%</div>
+                    </div>
+                    <!-- HP -->
+                    <div class="stat-item" id="stat-hp">
+                        <div class="stat-icon hp-icon">❤️</div>
+                        <div class="stat-info">
+                            <div class="stat-level">Lv. <span id="lv-hp">0</span></div>
+                            <div class="stat-name">HP% + <span id="val-hp">0</span>%</div>
+                        </div>
+                        <div class="stat-prob">강화 확률: <span id="prob-hp">33.33</span>%</div>
+                    </div>
+                </div>
+
+                <div class="preset-container">
+                    <div class="preset-label">PRESET</div>
+                    <div class="preset-buttons">
+                        <button class="preset-btn active" data-preset="0">1</button>
+                        <button class="preset-btn" data-preset="1">2</button>
+                        <button class="preset-btn" data-preset="2">3</button>
+                        <button class="preset-btn" data-preset="3">4</button>
+                        <button class="preset-btn" data-preset="4">5</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Info & Action -->
+            <div class="right-col">
+                <div class="info-box">
+                    <div class="big-leaf-icon">🍁</div>
+                    <div class="total-level">Total Lv.<span id="total-lv">0</span></div>
+                    <div class="success-rate-wrap">
+                        <div class="success-rate">강화 성공 확률 : <span id="success-rate">100</span>%</div>
+                        <div class="remaining-count">남은 강화 횟수 <span id="rem-count">34</span>/<span id="max-count">34</span></div>
+                    </div>
+                    <div class="info-text">
+                        강화 횟수는 단풍나무 성장 레벨에 따라<br>점진적으로 증가합니다.<br>강화 성공 확률은 Total Lv에 따라 변경됩니다.
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Actions -->
+        <div class="bottom-actions">
+            <!-- Left empty to align buttons properly or wrap them in specific ways -->
+            <div class="action-btn-wrapper enhance-wrapper">
+                <button class="action-btn enhance-btn" id="btn-enhance">
+                    <div class="btn-title">능력치 강화하기</div>
+                    <div class="btn-cost">🍁 <span id="cost-enhance-owned">202400</span>/<span id="cost-enhance-req">1</span></div>
+                </button>
+            </div>
+
+            <div class="action-btn-wrapper reset-wrapper">
+                <button class="action-btn reset-btn" id="btn-reset">
+                    <div class="btn-title">강화 초기화하기</div>
+                    <div class="btn-cost">🍁 <span id="cost-reset-owned">202400</span>/<span id="cost-reset-req">30</span></div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal-content">
+            <h2 class="modal-title">설정</h2>
+            <div class="setting-item">
+                <label for="input-leaves">황금 단풍잎 보유량</label>
+                <input type="number" id="input-leaves" value="202400" min="0">
+            </div>
+            <div class="setting-item">
+                <label for="input-max-count">최대 강화 횟수 (최대 50)</label>
+                <input type="number" id="input-max-count" value="34" min="1" max="50">
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" id="btn-settings-cancel">취소</button>
+                <button class="modal-btn save" id="btn-settings-save">저장</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
